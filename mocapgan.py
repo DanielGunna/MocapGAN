@@ -1,5 +1,5 @@
 
-import bvh 
+from skeleton import Skeleton
 
 class MocapGAN:
     
@@ -7,7 +7,8 @@ class MocapGAN:
         print ('Initializing')
 
     def read_file(self,file):
-        bvh.Skeleton(file,0.5)
+        file_skeleton = Skeleton(file,0.5)
+   
     
          
 
@@ -15,6 +16,7 @@ class MocapGAN:
 if __name__ == '__main__':
     mocap = MocapGAN();
     mocap.read_file('example.bvh')
+
     
 
 
