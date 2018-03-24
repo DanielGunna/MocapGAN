@@ -6,6 +6,13 @@ class MocapGAN:
     
     def __init__(self):
         print ('Initializing')
+        self.XtranIndex = 0
+        self.YtranIndex = 1
+        self.ZtranIndex = 2
+        self.XrotIndex = 3
+        self.YrotIndex = 4
+        self.ZrotIndex = 5
+        
 
     def read_file(self,file):
         file_skeleton = Skeleton(file,0.5)
@@ -19,16 +26,24 @@ class MocapGAN:
                 6,
                 skeleton.frames
         ));
-       # for label,i in joint_labels,range(0,37):
-        #    print (label.name +" "+ i)
+        print (skeleton.root.frames[1])
+        for i in range(0,len(joint_labels)):
+            label = joint_labels[i]
+            if 'EndEffector_' in label:
+                joint = skeleton.getJoint(label.split('_')[1]).children[0]        
+                print(joint.offset)
+            else:
+                joint = skeleton.getJoint(joint_labels[i])
                         
+            
+        
             
         
         
     def get_children_joint_labels(self,labels,joint):
     
         if joint.name == 'End effector':
-            labels.append('EndEffector' + joint.parent.name)
+            labels.append('EndEffector_' + joint.parent.name)
         else:
             labels.append(joint.name)
         for child in joint.children:
